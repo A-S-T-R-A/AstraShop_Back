@@ -11,9 +11,16 @@ export default function Product() {
 
   const { product } = database.models;
 
-  route.setPath("/product");
+  route.setPath("/product/:id?");
 
-  route.setMethods(openDatabase(product));
+  const methods = openDatabase(product);
+
+  route.setMethods({
+    async get(req, res) {
+      const result = await methods.get(req);
+      res.json(result);
+    },
+  });
 
   return route;
 }

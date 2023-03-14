@@ -1,10 +1,45 @@
 export function openDatabase(model) {
   return Object.freeze({
-    get(req, res) {
-      console.log(111);
-      res.send(200);
+    async get(req) {
+      const { query, params } = req;
+
+      if (params.id) {
+        let result;
+
+        try {
+          result = await model.findByPk(params.id, { raw: true });
+        } catch (err) {
+          console.error(err);
+        }
+
+        return result;
+      }
+
+      let result;
+
+      try {
+        if (Object.keys(query).length) {
+          for (let name in query) {
+            query[name] = JSON.parse(query[name]);
+          }
+
+          result = await model.findAll(query);
+        } else {
+          result = await model.findAll();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      return result;
     },
-    async post(req, res) {
+    async post(req) {
+      const { body } = req;
+
+      if (typeof body === "undefined") {
+        throw new Error("invalid params");
+      }
+
       let result;
 
       try {
@@ -13,12 +48,11 @@ export function openDatabase(model) {
         console.error(err);
       }
 
-      // res.status(201);
-      res.sendStatus(201);
-
       return result;
     },
-    put() {},
+    put(params) {
+      const { body } = params;
+    },
     delete() {},
   });
 }
