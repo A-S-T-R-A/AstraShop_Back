@@ -17,10 +17,12 @@ export const categoryModel = {
   updatedAt: {
     type: DataTypes.DATE,
   },
+  parent_category_id: {
+    type: DataTypes.INTEGER,
+  },
 };
 
 export function Category(sequelize) {
-  console.log(11);
   return sequelize.define("category", categoryModel, {
     freezeTableName: true,
   });

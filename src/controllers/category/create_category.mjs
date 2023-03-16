@@ -12,7 +12,10 @@ export async function createCategory(req, res) {
   try {
     result = await category.create({ name: body.name });
   } catch (err) {
+    res.sendStatus(409);
     console.log(err);
+
+    return false;
   }
 
   res.sendStatus(201);

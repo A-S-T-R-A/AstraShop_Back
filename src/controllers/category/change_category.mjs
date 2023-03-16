@@ -20,7 +20,7 @@ export async function changeCategory(req, res) {
       },
       {
         where: {
-          id,
+          id: parseInt(id),
         },
       }
     );
