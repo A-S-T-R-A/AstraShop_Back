@@ -15,7 +15,8 @@ export default function Category() {
     },
   });
 
-  route.setPath("/category");
+  route.setPath("/category/:id?");
+  route.setMethods({});
 
   return route;
 }

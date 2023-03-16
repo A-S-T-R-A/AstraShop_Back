@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-const productModel = {
+export const categoryModel = {
   id: {
     autoIncrement: true,
     primaryKey: true,
@@ -19,8 +19,9 @@ const productModel = {
   },
 };
 
-export function Product(sequelize) {
-  return sequelize.define("product", productModel, {
+export function Category(sequelize) {
+  console.log(11);
+  return sequelize.define("category", categoryModel, {
     freezeTableName: true,
   });
 }
