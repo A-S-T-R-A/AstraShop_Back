@@ -17,6 +17,24 @@ const productModel = {
   updatedAt: {
     type: DataTypes.DATE,
   },
+  is_new: {
+    type: DataTypes.BOOLEAN,
+  },
+  is_top: {
+    type: DataTypes.BOOLEAN,
+  },
+  description: {
+    type: DataTypes.STRING,
+  },
+  images: {
+    type: DataTypes.ARRAY(DataTypes.INTEGER),
+  },
+  price: {
+    type: DataTypes.INTEGER,
+  },
+  attributes: {
+    type: DataTypes.JSON,
+  },
 };
 
 export function Product(sequelize) {
