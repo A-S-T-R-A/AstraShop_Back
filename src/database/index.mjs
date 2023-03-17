@@ -44,6 +44,16 @@ export function Database() {
           return model;
         })
       );
+
+      const { product, category } = sequelize.models;
+
+      category.hasMany(product, {
+        foreignKey: "parent_category_id",
+      });
+
+      product.belongsTo(category, {
+        foreignKey: "parent_category_id",
+      });
     },
     getInstance() {
       return sequelize;
