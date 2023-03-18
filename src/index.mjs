@@ -15,6 +15,10 @@ const app = express();
 
 app.use(express.json());
 
+app.get("/api/v1/check", (req, res) => {
+  res.sendStatus(200);
+});
+
 app.get("/api/v1/category/tree", getCategoryTree);
 app.get("/api/v1/category/:id/products", getCategoryProducts);
 app.post("/api/v1/category", createCategory);
