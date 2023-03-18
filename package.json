@@ -1,7 +1,5 @@
 {
-  "devDependencies": {
-    "nodemon": "^2.0.21"
-  },
+  "devDependencies": {},
   "name": "e-commerce",
   "version": "1.0.0",
   "main": "index.js",
@@ -21,6 +19,7 @@
     "sequelize": "^6.29.3",
     "sequelize-cli": "^6.6.0",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.21"
   }
 }
