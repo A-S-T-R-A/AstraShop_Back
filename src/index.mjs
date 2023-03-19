@@ -13,6 +13,16 @@ import https from "https";
 
 const app = express();
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.header("Access-Control-Allow-Headers", "content-type,Authorization");
+  next();
+});
+
 app.use(express.json());
 
 app.get("/api/v1/check", (req, res) => {
