@@ -11,6 +11,8 @@ import { getCategoryFilters } from "./controllers/category/get_category_filters.
 import fs from "fs";
 import path from "path";
 import https from "https";
+import { createOrder } from "./controllers/order/create_order.mjs";
+import { getAllOrders } from "./controllers/order/get_all_orders.mjs";
 
 const app = express();
 
@@ -40,6 +42,9 @@ app.get("/api/v1/product/new", getNewProducts);
 app.get("/api/v1/product/:id", getProductById);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
+
+app.post("/api/v1/order", createOrder);
+app.get("/api/v1/order", getAllOrders);
 
 const options = {
   ca: fs.readFileSync(path.resolve("cert", "ca_bundle.crt")),
