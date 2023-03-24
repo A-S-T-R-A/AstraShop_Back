@@ -45,13 +45,21 @@ export function Database() {
         })
       );
 
-      const { product, category } = sequelize.models;
+      const { product, category, category_filters } = sequelize.models;
 
       category.hasMany(product, {
         foreignKey: "parent_category_id",
       });
 
       product.belongsTo(category, {
+        foreignKey: "parent_category_id",
+      });
+
+      category.hasMany(category_filters, {
+        foreignKey: "parent_category_id",
+      });
+
+      category_filters.belongsTo(category, {
         foreignKey: "parent_category_id",
       });
     },

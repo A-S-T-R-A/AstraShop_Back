@@ -21,7 +21,7 @@ export const categoryFiltersModel = {
   },
 };
 
-export function Category(sequelize) {
+export function CategoryFilters(sequelize) {
   return sequelize.define("category_filters", categoryFiltersModel, {
     freezeTableName: true,
   });

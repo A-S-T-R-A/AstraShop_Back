@@ -7,6 +7,7 @@ import { getProductById } from "./controllers/product/get_product_by_id.mjs";
 import { getCategoryProducts } from "./controllers/category/get_category_products.mjs";
 import { getTopProducts } from "./controllers/product/get_top_products.mjs";
 import { getNewProducts } from "./controllers/product/get_new_products.mjs";
+import { getCategoryFilters } from "./controllers/category/get_category_filters.mjs";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -37,6 +38,8 @@ app.put("/api/v1/category/:id", changeCategory);
 app.get("/api/v1/product/top", getTopProducts);
 app.get("/api/v1/product/new", getNewProducts);
 app.get("/api/v1/product/:id", getProductById);
+
+app.get("/api/v1/category/:id/filters", getCategoryFilters);
 
 const options = {
   ca: fs.readFileSync(path.resolve("cert", "ca_bundle.crt")),
