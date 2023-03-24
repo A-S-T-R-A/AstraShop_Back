@@ -13,6 +13,8 @@ import path from "path";
 import https from "https";
 import { createOrder } from "./controllers/order/create_order.mjs";
 import { getAllOrders } from "./controllers/order/get_all_orders.mjs";
+import * as url from "url";
+export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const app = express();
 
@@ -27,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use("/static", express.static(path.join(__dirname, "views", "static")));
 
 app.get("/api/v1/check", (req, res) => {
   res.sendStatus(200);
@@ -45,6 +48,18 @@ app.get("/api/v1/category/:id/filters", getCategoryFilters);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "views", "index.html"));
+});
+
+app.get("/success_payment", function (req, res) {
+  res.sendFile(path.join(__dirname, "views", "success_payment.html"));
+});
+
+app.get("/cancel_payment", function (req, res) {
+  res.sendFile(path.join(__dirname, "views", "cancel_payment.html"));
+});
 
 const options = {
   ca: fs.readFileSync(path.resolve("cert", "ca_bundle.crt")),

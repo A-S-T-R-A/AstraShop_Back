@@ -7,7 +7,7 @@ const ordersModel = {
     type: DataTypes.INTEGER,
   },
   info: {
-    type: Sequelize.DataTypes.JSONB,
+    type: DataTypes.JSONB,
     allowNull: false,
   },
   createdAt: {
@@ -18,7 +18,7 @@ const ordersModel = {
   },
 };
 
-export function Product(sequelize) {
+export function Orders(sequelize) {
   return sequelize.define("orders", ordersModel, {
     freezeTableName: true,
   });
