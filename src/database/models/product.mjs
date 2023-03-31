@@ -27,13 +27,16 @@ const productModel = {
     type: DataTypes.STRING,
   },
   images: {
-    type: DataTypes.ARRAY(DataTypes.INTEGER),
+    type: DataTypes.ARRAY(DataTypes.STRING),
   },
   price: {
     type: DataTypes.INTEGER,
   },
   attributes: {
     type: DataTypes.JSON,
+  },
+  icon: {
+    type: DataTypes.STRING,
   },
 };
 
