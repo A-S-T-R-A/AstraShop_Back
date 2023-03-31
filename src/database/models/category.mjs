@@ -20,6 +20,15 @@ export const categoryModel = {
   parent_category_id: {
     type: DataTypes.INTEGER,
   },
+  icon: {
+    type: DataTypes.STRING,
+  },
+  image: {
+    type: DataTypes.STRING,
+  },
+  hru: {
+    type: DataTypes.STRING,
+  },
 };
 
 export function Category(sequelize) {

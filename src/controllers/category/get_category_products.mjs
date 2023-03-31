@@ -12,7 +12,10 @@ export async function getCategoryProducts(req, res) {
   let result;
 
   try {
-    result = await category.findByPk(id, { include: product });
+    result = await category.findByPk(id, {
+      include: product,
+      attributes: ["parent_category_id", "id", "name", "image", "icon", "hru"],
+    });
   } catch (err) {
     console.log(err);
   }

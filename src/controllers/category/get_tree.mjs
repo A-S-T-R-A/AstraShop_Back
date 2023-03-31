@@ -27,8 +27,7 @@ export async function getCategoryTree(req, res) {
   try {
     result = await category.findAll({
       order: [["parent_category_id", "NULLS FIRST"]],
-      attributes: ["parent_category_id", "id", "name"],
-      include: { model: product },
+      attributes: ["parent_category_id", "id", "name", "image", "icon", "hru"],
     });
   } catch (err) {
     console.log(err);
