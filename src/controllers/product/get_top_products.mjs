@@ -13,6 +13,11 @@ export async function getTopProducts(req, res) {
         is_top: true,
       },
     });
+
+    if (!result) {
+      res.sendStatus(404);
+      return;
+    }
   } catch (err) {
     console.log(err);
   }

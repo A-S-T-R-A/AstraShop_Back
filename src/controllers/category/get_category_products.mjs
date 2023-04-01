@@ -16,6 +16,11 @@ export async function getCategoryProducts(req, res) {
       include: product,
       attributes: ["parent_category_id", "id", "name", "image", "icon", "hru"],
     });
+
+    if (!result) {
+      res.sendStatus(404);
+      return;
+    }
   } catch (err) {
     console.log(err);
   }

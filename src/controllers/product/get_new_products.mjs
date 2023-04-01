@@ -13,6 +13,11 @@ export async function getNewProducts(req, res) {
         is_new: true,
       },
     });
+
+    if (!result) {
+      res.sendStatus(404);
+      return;
+    }
   } catch (err) {
     console.log(err);
   }

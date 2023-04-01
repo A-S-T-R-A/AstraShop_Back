@@ -15,6 +15,11 @@ export async function getProductById(req, res) {
   try {
     result = await product.findByPk(id);
 
+    if (!result) {
+      res.sendStatus(404);
+      return;
+    }
+
     const parentCategories = await db.query(
       `
       WITH RECURSIVE category_tree AS (
