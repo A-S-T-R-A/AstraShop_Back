@@ -45,7 +45,14 @@ export function Database() {
         })
       );
 
-      const { product, category, category_filters } = sequelize.models;
+      const {
+        product,
+        category,
+        category_filters,
+        attribute_values,
+        attribute_types,
+        product_attributes,
+      } = sequelize.models;
 
       category.hasMany(product, {
         foreignKey: "parent_category_id",
@@ -61,6 +68,30 @@ export function Database() {
 
       category_filters.belongsTo(category, {
         foreignKey: "parent_category_id",
+      });
+
+      attribute_types.hasMany(attribute_values, {
+        foreignKey: "attribute_type_id",
+      });
+
+      attribute_values.belongsTo(attribute_types, {
+        foreignKey: "attribute_type_id",
+      });
+
+      product.hasMany(product_attributes, {
+        foreignKey: "product_id",
+      });
+
+      product_attributes.belongsTo(product, {
+        foreignKey: "product_id",
+      });
+
+      attribute_values.hasMany(product_attributes, {
+        foreignKey: "product_attribute_value_id",
+      });
+
+      product_attributes.belongsTo(attribute_values, {
+        foreignKey: "product_attribute_value_id",
       });
     },
     getInstance() {

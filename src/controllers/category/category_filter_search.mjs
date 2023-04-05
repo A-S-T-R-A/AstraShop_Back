@@ -6,79 +6,70 @@ export async function categoryFilterSearch(req, res) {
 
   const {
     params: { id },
-    query: { type },
-    query,
   } = req;
 
-  const { category, product } = db.models;
+  const { category_filters } = db.models;
+
+  let filterResult;
+
+  try {
+    filterResult = await category_filters.findByPk(id);
+
+    if (!filterResult) {
+      res.sendStatus(404);
+      return;
+    }
+  } catch (err) {
+    res.sendStatus(500);
+    return console.log(err);
+  }
 
   let result;
 
-  switch (type) {
+  const { product, product_attributes } = db.models;
+  const { query } = req;
+
+  switch (filterResult.type) {
     case "attributes":
+      const { id } = query;
+
       try {
-        result = await category.findByPk(id, {
-          include: product,
+        result = await product.findAll({
+          where: {
+            parent_category_id: filterResult.parent_category_id,
+          },
+          include: {
+            model: product_attributes,
+            where: {
+              id: {
+                [Op.or]: id.split(",").map((el) => parseInt(el)),
+              },
+            },
+          },
         });
-
-        const { attributes: queryAttributes } = query;
-
-        if (typeof queryAttributes === "undefined") {
-          console.log("Attributes not found");
-          return res.sendStatus(400);
-        }
-
-        let attributes;
-
-        try {
-          attributes = JSON.parse(queryAttributes);
-        } catch (err) {
-          console.log("Attributes not valid");
-          return res.sendStatus(400);
-        }
-
-        const products = JSON.parse(JSON.stringify(result.products)).filter(
-          (el) => {
-            for (let key in attributes) {
-              if (el?.attributes?.[key] == attributes[key]) {
-                return true;
-              }
-            }
-          }
-        );
-
-        res.json(products);
       } catch (err) {
         res.sendStatus(500);
         return console.log(err);
       }
-
       break;
+    case "price_range":
+      const { min, max } = query;
 
-    case "range":
       try {
-        const { min, max } = query;
-
-        if (typeof min === "undefined" || typeof max === "undefined") {
-          console.log("Min or max not valid");
-          return res.sendStatus(400);
-        }
-
-        result = await category.findByPk(id, {
-          include: {
-            model: product,
-            where: {
-              price: { [Op.between]: [min, max] },
+        result = await product.findAll({
+          where: {
+            parent_category_id: filterResult.parent_category_id,
+            price: {
+              [Op.between]: [min, max],
             },
           },
         });
-
-        res.json(result);
       } catch (err) {
-        console.log(err);
-        return res.sendStatus(500);
+        res.sendStatus(500);
+        return console.log(err);
       }
-
       break;
   }
+
+  res.json(result);
 }

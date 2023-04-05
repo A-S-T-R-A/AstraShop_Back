@@ -46,7 +46,7 @@ app.get("/api/v1/product/new", getNewProducts);
 app.get("/api/v1/product/:id", getProductById);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
-app.get("/api/v1/category/:id/filters/search", categoryFilterSearch);
+app.get("/api/v1/category/filters/:id", categoryFilterSearch);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);

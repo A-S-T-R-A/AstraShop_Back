@@ -32,9 +32,6 @@ const productModel = {
   price: {
     type: DataTypes.INTEGER,
   },
-  attributes: {
-    type: DataTypes.JSON,
-  },
   icon: {
     type: DataTypes.STRING,
   },

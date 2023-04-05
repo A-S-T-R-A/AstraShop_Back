@@ -25,6 +25,9 @@ export const categoryFiltersModel = {
   type: {
     type: DataTypes.STRING,
   },
+  value: {
+    type: DataTypes.STRING,
+  },
 };
 
 export function CategoryFilters(sequelize) {

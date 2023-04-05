@@ -8,12 +8,27 @@ export async function getProductById(req, res) {
     params: { id },
   } = req;
 
-  const { product } = db.models;
+  const { product, product_attributes, attribute_types, attribute_values } =
+    db.models;
 
   let result;
 
   try {
-    result = await product.findByPk(id);
+    result = await product.findByPk(id, {
+      include: {
+        model: product_attributes,
+        attributes: ["id"],
+        include: {
+          attributes: ["id", "name"],
+          model: attribute_values,
+          include: {
+            attributes: ["id", "name"],
+            model: attribute_types,
+          },
+        },
+      },
+      attributes: ["id", "name", "description", "price", "images"],
+    });
 
     if (!result) {
       res.sendStatus(404);
@@ -37,7 +52,25 @@ export async function getProductById(req, res) {
       `
     );
 
-    result = JSON.parse(JSON.stringify(result));
+    result = result.toJSON();
+
+    const attributes = {};
+
+    result.product_attributes.forEach((el) => {
+      const value = el.attribute_value;
+      const type = value.attribute_type;
+
+      if (!attributes[type.name]) {
+        attributes[type.name] = [];
+      }
+
+      attributes[type.name].push({ id: value.id, name: value.name });
+    });
+
+    result.attributes = attributes;
+
+    delete result.product_attributes;
+
     result.parentCategories = parentCategories[0];
   } catch (err) {
     console.log(err);
