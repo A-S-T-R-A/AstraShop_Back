@@ -13,9 +13,11 @@ export async function getCategoryFilters(req, res) {
 
   try {
     result = await category.findByPk(id, { include: category_filters });
+
+    if (!result) return res.sendStatus(404);
   } catch (err) {
     console.log(err);
   }
 
-  res.json(result);
+  res.json(result.category_filters);
 }
