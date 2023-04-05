@@ -19,6 +19,12 @@ export const categoryFiltersModel = {
     type: DataTypes.JSONB,
     allowNull: true,
   },
+  name: {
+    type: DataTypes.STRING,
+  },
+  type: {
+    type: DataTypes.STRING,
+  },
 };
 
 export function CategoryFilters(sequelize) {
