@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.mjs",
-    "start": "pm2 start node -- src/index.mjs"
+    "start": "pm2 start node -- src/index.mjs",
+    "migration": "sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
