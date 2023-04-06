@@ -390,6 +390,7 @@ COPY public."SequelizeMeta" (name) FROM stdin;
 
 COPY public.attribute_types (id, name, category_id, "createdAt", "updatedAt") FROM stdin;
 1	color	32	2023-04-05 14:49:17.228043+02	2023-04-05 14:49:17.228043+02
+3	size	32	2023-04-05 14:49:17.228043+02	2023-04-05 14:49:17.228043+02
 \.
 
 
@@ -401,6 +402,8 @@ COPY public.attribute_values (id, name, attribute_type_id, "createdAt", "updated
 1	red	1	2023-04-05 14:51:04.941444+02	2023-04-05 14:51:04.941444+02
 2	green	1	2023-04-05 14:51:04.941444+02	2023-04-05 14:51:04.941444+02
 3	blue	1	2023-04-05 14:51:04.941444+02	2023-04-05 14:51:04.941444+02
+4	big	3	2023-04-05 14:51:04.941444+02	2023-04-05 14:51:04.941444+02
+5	small	3	2023-04-05 14:51:04.941444+02	2023-04-05 14:51:04.941444+02
 \.
 
 
@@ -420,6 +423,7 @@ COPY public.category (id, name, "createdAt", "updatedAt", parent_category_id, ic
 
 COPY public.category_filters (id, "createdAt", "updatedAt", parent_category_id, info, name, type, value) FROM stdin;
 151	2023-04-05 11:47:53.390049+02	2023-04-05 11:47:53.390049+02	83	\N	some name with attributes	attributes	1
+152	2023-04-05 11:47:53.390049+02	2023-04-05 11:47:53.390049+02	83	\N	some name with attributes	attributes	3
 150	2023-04-05 11:47:53.390049+02	2023-04-05 11:47:53.390049+02	83	\N	some name with attributes	price_range	{"from": 0, "to": 6000}
 \.
 
@@ -439,6 +443,14 @@ COPY public.orders (id, info, "createdAt", "updatedAt") FROM stdin;
 COPY public.product (id, name, "createdAt", "updatedAt", parent_category_id, is_new, is_top, description, price, images, icon) FROM stdin;
 21	Product 1	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	376	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
 35	Product 2	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	100	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+36	Product 3	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	200	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+39	Product 6	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	20	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+37	Product 4	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	300	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+40	Product 7	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	1000	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+38	Product 5	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	50	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+41	Product 8	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	228	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+43	Product 10	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	322	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+42	Product 9	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	666	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
 \.
 
 
@@ -450,6 +462,8 @@ COPY public.product_attributes (id, product_id, product_attribute_value_id, "cre
 1	21	1	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 2	21	2	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 3	35	3	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
+4	35	4	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
+5	40	5	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 \.
 
 
@@ -457,21 +471,21 @@ COPY public.product_attributes (id, product_id, product_attribute_value_id, "cre
 -- Name: attribute_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.attribute_types_id_seq', 2, true);
+SELECT pg_catalog.setval('public.attribute_types_id_seq', 3, true);
 
 
 --
 -- Name: attribute_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.attribute_values_id_seq', 3, true);
+SELECT pg_catalog.setval('public.attribute_values_id_seq', 5, true);
 
 
 --
 -- Name: category_filters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.category_filters_id_seq', 151, true);
+SELECT pg_catalog.setval('public.category_filters_id_seq', 152, true);
 
 
 --
@@ -492,14 +506,14 @@ SELECT pg_catalog.setval('public.orders_id_seq', 1, false);
 -- Name: product_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.product_attributes_id_seq', 3, true);
+SELECT pg_catalog.setval('public.product_attributes_id_seq', 5, true);
 
 
 --
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_id_seq', 35, true);
+SELECT pg_catalog.setval('public.product_id_seq', 43, true);
 
 
 --
