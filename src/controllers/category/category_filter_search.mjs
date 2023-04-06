@@ -35,10 +35,12 @@ export async function categoryFilterSearch(req, res) {
 
       try {
         result = await product.findAll({
+          attributes: ["id", "name", "price", "images"],
           where: {
             parent_category_id: filterResult.parent_category_id,
           },
           include: {
+            attributes: [],
             model: product_attributes,
             where: {
               id: {
@@ -57,6 +59,7 @@ export async function categoryFilterSearch(req, res) {
 
       try {
         result = await product.findAll({
+          attributes: ["id", "name", "price", "images"],
           where: {
             parent_category_id: filterResult.parent_category_id,
             price: {
