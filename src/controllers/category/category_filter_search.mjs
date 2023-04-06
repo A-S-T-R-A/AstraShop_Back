@@ -33,6 +33,11 @@ export async function categoryFilterSearch(req, res) {
     case "attributes":
       const { id } = query;
 
+      if (!id) {
+        res.sendStatus(400);
+        return;
+      }
+
       try {
         result = await product.findAll({
           attributes: ["id", "name", "price", "images"],
@@ -56,6 +61,11 @@ export async function categoryFilterSearch(req, res) {
       break;
     case "price_range":
       const { min, max } = query;
+
+      if (!min && !max) {
+        res.sendStatus(400);
+        return;
+      }
 
       try {
         result = await product.findAll({
