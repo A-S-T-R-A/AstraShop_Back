@@ -15,6 +15,8 @@ import { createOrder } from "./controllers/order/create_order.mjs";
 import { getAllOrders } from "./controllers/order/get_all_orders.mjs";
 import * as url from "url";
 import { categoryFilterSearch } from "./controllers/category/category_filter_search.mjs";
+import { searchProduct } from "./controllers/product/search_product.mjs";
+
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const app = express();
@@ -43,6 +45,8 @@ app.put("/api/v1/category/:id", changeCategory);
 
 app.get("/api/v1/product/top", getTopProducts);
 app.get("/api/v1/product/new", getNewProducts);
+app.get("/api/v1/product/search", searchProduct);
+
 app.get("/api/v1/product/:id", getProductById);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
