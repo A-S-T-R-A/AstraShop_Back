@@ -32,7 +32,7 @@ export async function createOrder(req, res) {
 
   productsResult = productsResult.map((product) => product.toJSON());
 
-  let lineItems = productsResult.map((product) => {
+  let lineItems = productsResult.map((product, i) => {
     return {
       price_data: {
         currency: "usd",
@@ -41,50 +41,51 @@ export async function createOrder(req, res) {
         },
         unit_amount: product.price * 100,
       },
-      quantity: product.quantity,
+      quantity: order[i].quantity,
     };
   });
 
   let checkoutSession;
 
-  // try {
-  //   checkoutSession = await stripe.checkout.sessions.create({
-  //     line_items: lineItems,
-  //     mode: "payment",
-  //     success_url: `${PAYMENT_SUCCESS_URL}`,
-  //     cancel_url: `${PAYMENT_CANCEL_URL}`,
-  //   });
-  // } catch (err) {
-  //   console.log(err);
-  //   return res.status(500);
-  // }
-
-  const { orders } = db.models;
-
-  let result;
-
-  lineItems = lineItems.map((lineItem) => {
-    return {
-      info: lineItem,
-    };
-  });
-
   try {
-    result = await orders.bulkCreate(lineItems);
+    checkoutSession = await stripe.checkout.sessions.create({
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `${PAYMENT_SUCCESS_URL}`,
+      cancel_url: `${PAYMENT_CANCEL_URL}`,
+    });
   } catch (err) {
     console.log(err);
     return res.status(500);
   }
 
-  // res.status(201).json({ url: checkoutSession.url });
+  res.status(201).json({ url: checkoutSession.url });
 
-  // let result;
+  const { orders, order_products } = db.models;
 
-  // try {
-  //   result = await orders.create({ product_id });
-  // } catch (err) {
-  //   console.log(err);
-  // }
+  let result;
 
-  // res.json(result);
+  try {
+    result = await orders.create({});
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+
+  const orderId = result.id;
+
+  try {
+    result = await order_products.bulkCreate(
+      order.map((el) => {
+        return {
+          product_id: el.id,
+          order_id: orderId,
+          quantity: el.quantity,
+        };
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
 }

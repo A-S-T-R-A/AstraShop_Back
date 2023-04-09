@@ -14,6 +14,10 @@ const model = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   createdAt: {
     type: DataTypes.DATE,
   },
