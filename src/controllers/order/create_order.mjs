@@ -16,6 +16,10 @@ export async function createOrder(req, res) {
 
   const { order } = req.body;
 
+  if (!order) {
+    return res.status(400).json({ message: "No order" });
+  }
+
   let productsResult;
 
   try {
@@ -25,6 +29,10 @@ export async function createOrder(req, res) {
       },
       attributes: ["id", "name", "price"],
     });
+
+    if (productsResult.length < order.length) {
+      return res.status(400).json({ message: "Product not found" });
+    }
   } catch (err) {
     console.log(err);
     return res.status(500);
