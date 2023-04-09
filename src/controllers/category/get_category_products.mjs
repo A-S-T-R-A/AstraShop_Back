@@ -20,7 +20,6 @@ export async function getCategoryProducts(req, res) {
   const params = {
     include: {
       model: product,
-      attributes: ["price"],
     },
     attributes: ["parent_category_id", "id", "name", "image", "icon", "hru"],
   };
