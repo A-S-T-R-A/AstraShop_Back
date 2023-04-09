@@ -3,15 +3,16 @@ const orderForm = document.getElementById("order-form");
 orderForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const formData = new FormData(orderForm);
-  const product_id = formData.get("product_id");
+  const order = Array.from(
+    document.getElementsByClassName("product_quantity")
+  ).map((el) => ({ quantity: +el.value, id: +el.id.match(/\d+/)[0] }));
 
   const response = await fetch("/api/v1/order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ product_id }),
+    body: JSON.stringify({ order }),
   });
 
   const result = await response.json();

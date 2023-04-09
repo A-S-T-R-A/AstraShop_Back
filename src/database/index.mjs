@@ -52,6 +52,8 @@ export function Database() {
         attribute_values,
         attribute_types,
         product_attributes,
+        order_products,
+        orders,
       } = sequelize.models;
 
       category.hasMany(product, {
@@ -92,6 +94,22 @@ export function Database() {
 
       product_attributes.belongsTo(attribute_values, {
         foreignKey: "product_attribute_value_id",
+      });
+
+      product.hasMany(order_products, {
+        foreignKey: "product_id",
+      });
+
+      order_products.belongsTo(product, {
+        foreignKey: "product_id",
+      });
+
+      orders.hasMany(order_products, {
+        foreignKey: "order_id",
+      });
+
+      order_products.belongsTo(orders, {
+        foreignKey: "order_id",
       });
     },
     getInstance() {

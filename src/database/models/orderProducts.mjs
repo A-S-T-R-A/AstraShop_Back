@@ -1,10 +1,18 @@
 import { DataTypes } from "sequelize";
 
-const ordersModel = {
+const model = {
   id: {
     autoIncrement: true,
     primaryKey: true,
     type: DataTypes.INTEGER,
+  },
+  order_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  product_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -14,8 +22,8 @@ const ordersModel = {
   },
 };
 
-export function Orders(sequelize) {
-  return sequelize.define("orders", ordersModel, {
+export function OrderProducts(sequelize) {
+  return sequelize.define("order_products", model, {
     freezeTableName: true,
   });
 }

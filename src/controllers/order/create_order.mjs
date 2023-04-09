@@ -12,13 +12,27 @@ const stripe = new Stripe(STRIPE_SECRET_KEY);
 export async function createOrder(req, res) {
   const db = Database().getInstance();
 
-  const {
-    order: { products },
-  } = req.body;
+  const { product } = db.models;
 
-  let checkoutSession;
+  const { order } = req.body;
 
-  const lineItems = products.map((product) => {
+  let productsResult;
+
+  try {
+    productsResult = await product.findAll({
+      where: {
+        id: order.map((product) => product.id),
+      },
+      attributes: ["id", "name", "price"],
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
+  }
+
+  productsResult = productsResult.map((product) => product.toJSON());
+
+  let lineItems = productsResult.map((product) => {
     return {
       price_data: {
         currency: "usd",
@@ -31,21 +45,38 @@ export async function createOrder(req, res) {
     };
   });
 
+  let checkoutSession;
+
+  // try {
+  //   checkoutSession = await stripe.checkout.sessions.create({
+  //     line_items: lineItems,
+  //     mode: "payment",
+  //     success_url: `${PAYMENT_SUCCESS_URL}`,
+  //     cancel_url: `${PAYMENT_CANCEL_URL}`,
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(500);
+  // }
+
+  const { orders } = db.models;
+
+  let result;
+
+  lineItems = lineItems.map((lineItem) => {
+    return {
+      info: lineItem,
+    };
+  });
+
   try {
-    checkoutSession = await stripe.checkout.sessions.create({
-      line_items: lineItems,
-      mode: "payment",
-      success_url: `${PAYMENT_SUCCESS_URL}`,
-      cancel_url: `${PAYMENT_CANCEL_URL}`,
-    });
+    result = await orders.bulkCreate(lineItems);
   } catch (err) {
     console.log(err);
     return res.status(500);
   }
 
-  res.status(201).json({ url: checkoutSession.url });
-
-  // const { orders } = db.models;
+  // res.status(201).json({ url: checkoutSession.url });
 
   // let result;
 
