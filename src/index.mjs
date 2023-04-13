@@ -14,7 +14,6 @@ import https from "https";
 import { createOrder } from "./controllers/order/create_order.mjs";
 import { getAllOrders } from "./controllers/order/get_all_orders.mjs";
 import * as url from "url";
-import { categoryFilterSearch } from "./controllers/category/category_filter_search.mjs";
 import { searchProduct } from "./controllers/product/search_product.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -50,7 +49,6 @@ app.get("/api/v1/product/search", searchProduct);
 app.get("/api/v1/product/:id", getProductById);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
-app.get("/api/v1/category/filters/:id", categoryFilterSearch);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);
