@@ -198,12 +198,49 @@ ALTER SEQUENCE public.category_id_seq OWNED BY public.category.id;
 
 
 --
+-- Name: order_products; Type: TABLE; Schema: public; Owner: denys
+--
+
+CREATE TABLE public.order_products (
+    id integer NOT NULL,
+    order_id integer NOT NULL,
+    product_id integer NOT NULL,
+    "createdAt" timestamp with time zone,
+    "updatedAt" timestamp with time zone,
+    quantity integer
+);
+
+
+ALTER TABLE public.order_products OWNER TO denys;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+--
+
+CREATE SEQUENCE public.order_products_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_products_id_seq OWNER TO denys;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+--
+
+ALTER SEQUENCE public.order_products_id_seq OWNED BY public.order_products.id;
+
+
+--
 -- Name: orders; Type: TABLE; Schema: public; Owner: denys
 --
 
 CREATE TABLE public.orders (
     id integer NOT NULL,
-    info jsonb NOT NULL,
     "createdAt" timestamp with time zone,
     "updatedAt" timestamp with time zone
 );
@@ -342,6 +379,13 @@ ALTER TABLE ONLY public.category_filters ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: order_products id; Type: DEFAULT; Schema: public; Owner: denys
+--
+
+ALTER TABLE ONLY public.order_products ALTER COLUMN id SET DEFAULT nextval('public.order_products_id_seq'::regclass);
+
+
+--
 -- Name: orders id; Type: DEFAULT; Schema: public; Owner: denys
 --
 
@@ -381,6 +425,9 @@ COPY public."SequelizeMeta" (name) FROM stdin;
 20230405122330-create_attribute_types_table.js
 20230405122447-create_attribute_values_table.js
 20230405124003-change_product_table.js
+20230409171602-change_order_table.js
+20230409171723-create_order_products_table.js
+20230409180036-change_order_products_table.js
 \.
 
 
@@ -429,10 +476,54 @@ COPY public.category_filters (id, "createdAt", "updatedAt", parent_category_id, 
 
 
 --
+-- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: denys
+--
+
+COPY public.order_products (id, order_id, product_id, "createdAt", "updatedAt", quantity) FROM stdin;
+9	9	21	2023-04-09 20:10:41.427+02	2023-04-09 20:10:41.427+02	2
+10	9	35	2023-04-09 20:10:41.427+02	2023-04-09 20:10:41.427+02	1
+11	10	21	2023-04-09 20:13:30.716+02	2023-04-09 20:13:30.716+02	2
+12	10	35	2023-04-09 20:13:30.716+02	2023-04-09 20:13:30.716+02	1
+13	11	21	2023-04-09 20:14:01.296+02	2023-04-09 20:14:01.296+02	2
+14	11	35	2023-04-09 20:14:01.296+02	2023-04-09 20:14:01.296+02	1
+15	12	21	2023-04-09 20:44:33.879+02	2023-04-09 20:44:33.879+02	2
+16	12	35	2023-04-09 20:44:33.879+02	2023-04-09 20:44:33.879+02	1
+17	13	21	2023-04-09 20:47:33.36+02	2023-04-09 20:47:33.36+02	2
+18	13	35	2023-04-09 20:47:33.36+02	2023-04-09 20:47:33.36+02	1
+19	14	21	2023-04-09 20:49:15.142+02	2023-04-09 20:49:15.142+02	2
+20	14	35	2023-04-09 20:49:15.142+02	2023-04-09 20:49:15.142+02	1
+21	15	21	2023-04-09 20:49:39.347+02	2023-04-09 20:49:39.347+02	2
+22	15	35	2023-04-09 20:49:39.347+02	2023-04-09 20:49:39.347+02	20
+23	16	21	2023-04-09 20:50:15.421+02	2023-04-09 20:50:15.421+02	2
+24	16	2333	2023-04-09 20:50:15.421+02	2023-04-09 20:50:15.421+02	20
+25	17	21	2023-04-09 20:50:30.502+02	2023-04-09 20:50:30.502+02	2
+26	17	2333	2023-04-09 20:50:30.502+02	2023-04-09 20:50:30.502+02	20
+27	18	21	2023-04-09 20:50:41.106+02	2023-04-09 20:50:41.106+02	2
+28	18	35	2023-04-09 20:50:41.106+02	2023-04-09 20:50:41.106+02	20
+29	19	21	2023-04-09 20:51:34.812+02	2023-04-09 20:51:34.812+02	2
+30	19	35	2023-04-09 20:51:34.812+02	2023-04-09 20:51:34.812+02	20
+31	20	21	2023-04-12 18:16:43.156+02	2023-04-12 18:16:43.156+02	2
+32	20	35	2023-04-12 18:16:43.156+02	2023-04-12 18:16:43.156+02	20
+\.
+
+
+--
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: denys
 --
 
-COPY public.orders (id, info, "createdAt", "updatedAt") FROM stdin;
+COPY public.orders (id, "createdAt", "updatedAt") FROM stdin;
+9	2023-04-09 20:10:41.408+02	2023-04-09 20:10:41.408+02
+10	2023-04-09 20:13:30.683+02	2023-04-09 20:13:30.683+02
+11	2023-04-09 20:14:01.285+02	2023-04-09 20:14:01.285+02
+12	2023-04-09 20:44:33.868+02	2023-04-09 20:44:33.868+02
+13	2023-04-09 20:47:33.342+02	2023-04-09 20:47:33.342+02
+14	2023-04-09 20:49:15.126+02	2023-04-09 20:49:15.126+02
+15	2023-04-09 20:49:39.331+02	2023-04-09 20:49:39.331+02
+16	2023-04-09 20:50:15.407+02	2023-04-09 20:50:15.407+02
+17	2023-04-09 20:50:30.491+02	2023-04-09 20:50:30.491+02
+18	2023-04-09 20:50:41.102+02	2023-04-09 20:50:41.102+02
+19	2023-04-09 20:51:34.799+02	2023-04-09 20:51:34.799+02
+20	2023-04-12 18:16:43.142+02	2023-04-12 18:16:43.142+02
 \.
 
 
@@ -451,6 +542,12 @@ COPY public.product (id, name, "createdAt", "updatedAt", parent_category_id, is_
 41	Product 8	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	f	f	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	228	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
 43	Product 10	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	322	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
 42	Product 9	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	666	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+44	Product 11	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	15	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+47	Product 14	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	100	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+49	Product 16	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	228	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+48	Product 15	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	322	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+46	Product 13	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	1488	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
+45	Product 12	2023-03-17 10:57:13.522699+01	2023-03-17 10:57:13.522699+01	83	t	t	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make	188	{https://www.cnet.com/a/img/resize/c2fb79b15d18f335e85fc4acd72910059cc9758b/hub/2021/08/20/453e37bf-61cb-4e16-ad90-fd822bdc390a/keychron-k3-mechanical-keyboard.jpg?auto=webp&fit=crop&height=900&width=1200,https://sites.google.com/site/brightmeasurement/_/rsrc/1365450861347/Home/keyboard-for-english-around-the-word/kb000%20us%20std%20kb.JPG}	\N
 \.
 
 
@@ -464,6 +561,9 @@ COPY public.product_attributes (id, product_id, product_attribute_value_id, "cre
 3	35	3	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 4	35	4	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 5	40	5	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
+6	44	2	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
+7	47	1	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
+8	48	3	2023-04-05 14:52:34.255795+02	2023-04-05 14:52:34.255795+02
 \.
 
 
@@ -496,24 +596,31 @@ SELECT pg_catalog.setval('public.category_id_seq', 83, true);
 
 
 --
+-- Name: order_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+--
+
+SELECT pg_catalog.setval('public.order_products_id_seq', 32, true);
+
+
+--
 -- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.orders_id_seq', 1, false);
+SELECT pg_catalog.setval('public.orders_id_seq', 20, true);
 
 
 --
 -- Name: product_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
 --
 
-SELECT pg_catalog.setval('public.product_attributes_id_seq', 5, true);
+SELECT pg_catalog.setval('public.product_attributes_id_seq', 8, true);
 
 
 --
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.product_id_seq', 43, true);
+SELECT pg_catalog.setval('public.product_id_seq', 49, true);
 
 
 --
@@ -562,6 +669,14 @@ ALTER TABLE ONLY public.category
 
 ALTER TABLE ONLY public.category
     ADD CONSTRAINT category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_products order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT order_products_pkey PRIMARY KEY (id);
 
 
 --
