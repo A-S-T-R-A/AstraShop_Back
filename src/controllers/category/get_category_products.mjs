@@ -78,7 +78,7 @@ export async function getCategoryProducts(req, res) {
       model: product_attributes,
       attributes: [],
       where: {
-        id: {
+        product_attribute_value_id: {
           [Op.or]: validationResult.attr.split(",").map((el) => parseInt(el)),
         },
       },
