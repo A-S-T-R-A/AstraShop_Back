@@ -15,6 +15,10 @@ import { createOrder } from "./controllers/order/create_order.mjs";
 import { getAllOrders } from "./controllers/order/get_all_orders.mjs";
 import * as url from "url";
 import { searchProduct } from "./controllers/product/search_product.mjs";
+import { renderProductsPage } from "./render/products.mjs";
+import { createProduct } from "./controllers/product/create_product.mjs";
+import { deleteProduct } from "./controllers/product/delete_product.mjs";
+import { updateProduct } from "./controllers/product/update_product.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -46,6 +50,10 @@ app.get("/api/v1/product/top", getTopProducts);
 app.get("/api/v1/product/new", getNewProducts);
 app.get("/api/v1/product/search", searchProduct);
 
+app.post("/api/v1/product", createProduct);
+app.delete("/api/v1/product/:id", deleteProduct);
+app.put("/api/v1/product/:id", updateProduct);
+
 app.get("/api/v1/product/:id", getProductById);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
@@ -64,6 +72,12 @@ app.get("/success_payment", function (req, res) {
 app.get("/cancel_payment", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "cancel_payment.html"));
 });
+
+app.set("views", path.join(__dirname, "views"));
+
+app.set("view engine", "pug");
+
+app.get("/admin/products", renderProductsPage);
 
 const options = {
   ca: fs.readFileSync(path.resolve("cert", "ca_bundle.crt")),

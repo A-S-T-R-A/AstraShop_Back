@@ -1,0 +1,62 @@
+html
+  head
+    title Products
+    link(rel="stylesheet", href="/static/css/admin/products.css")
+    script(src="/static/js/admin_products.js" defer)  
+  body
+    button(id = "add-product") Add Product
+    table(id = "products")
+      tr
+        th id
+        th Name
+        th Price
+        th Description
+
+      each val in products
+        tr(data-id = val.id class = "product")
+          td= val.id
+          td= val.name
+          td= val.price
+          td= val.description
+    div(id = "modal" class = "modal")
+      div(class = "modal-content")
+        form(id = "product-form" novalidate)
+          div(id = "form-content")
+            label(for = "input-name") 
+              div Name
+              input(type = "text" required id = "input-name" name = "name" placeholder = "Name")
+
+            label(for = "input-price") 
+              div Price
+              input(type = "number" required id = "input-price" name = "price" placeholder = "Price")
+
+            label(for = "input-description") 
+              div Description
+              textarea(id = "input-description" name = "description" placeholder = "Description")
+
+            div(id = "error-message")  
+
+            button(type = "submit") Submit
+        button(id = "close-modal-button") X
+    #edit-product-modal.modal
+      #edit-product-modal-content.modal-content
+        form(id = "edit-product-form" novalidate)
+          #edit-form-content
+            label(for = "edit-input-name") 
+              div Name
+              input(type = "text" required id = "edit-input-name" name = "name" placeholder = "Name")
+
+            label(for = "edit-input-price") 
+              div Price
+              input(type = "number" required id = "edit-input-price" name = "price" placeholder = "Price")
+
+            label(for = "edit-input-description") 
+              div Description
+              textarea(id = "edit-input-description" name = "description" placeholder = "Description")
+
+            #edit-error-message  
+
+            button(type = "submit" id = "save-product-button") Save
+            button(id = "delete-product-button" type = "button") Remove
+        button(id = "close-edit-modal-button") X    
+      
