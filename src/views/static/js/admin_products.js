@@ -4,6 +4,7 @@ let addProductButton;
 let productForm;
 let errorMessage;
 let productsTable;
+let selectCategoryForCreateProduct;
 
 let editProductModal;
 let editProfuctForm;
@@ -13,6 +14,7 @@ let editProductPriceInput;
 let editProductCloseModalButton;
 let editProductSaveButton;
 let editProductDeleteButton;
+let selectCategoryForEditProduct;
 
 const state = {
   selectedProduct: null,
@@ -30,6 +32,12 @@ function openEditProductModal(data) {
   editProductNameInput.value = data.name;
   editProductDescriptionInput.value = data.description;
   editProductPriceInput.value = data.price;
+
+  Array.from(selectCategoryForEditProduct.options).forEach((option) => {
+    if (option.value == data.category.id) {
+      option.selected = true;
+    }
+  });
 
   state.selectedProduct = data;
 }
@@ -60,8 +68,9 @@ function insertProductToTable(data) {
   row.innerHTML = `
     <td>${data.id}</td>
     <td>${data.name}</td>
-    <td>${data.description}</td>
     <td>${data.price}</td>
+    <td>${data.description}</td>
+    <td>${data.parentCategoryName}</td>
   `;
 }
 
@@ -73,11 +82,13 @@ async function createProduct(event) {
   const name = productForm.name.value;
   const description = productForm.description.value;
   const price = productForm.price.value;
+  const parent_category_id = +selectCategoryForCreateProduct.value;
 
   const data = {
     name,
     description,
     price,
+    parent_category_id,
   };
 
   const result = await fetch("/api/v1/product", {
@@ -89,11 +100,17 @@ async function createProduct(event) {
   });
 
   if (result.ok) {
+    const d = await result.json();
+
+    insertProductToTable({
+      ...d,
+      parentCategoryName:
+        selectCategoryForCreateProduct.children[
+          selectCategoryForCreateProduct.selectedIndex
+        ].textContent,
+    });
+
     closeCreateProductModal();
-
-    const data = await result.json();
-
-    insertProductToTable(data);
   } else {
     errorMessage.textContent = "Failed to create product";
     return;
@@ -101,6 +118,12 @@ async function createProduct(event) {
 }
 
 async function deleteProduct() {
+  const isConfirm = await confirm(
+    "Are you sure you want to delete this product?"
+  );
+
+  if (!isConfirm) return;
+
   const { id } = state.selectedProduct;
 
   const result = await fetch(`/api/v1/product/${id}`, {
@@ -108,9 +131,57 @@ async function deleteProduct() {
   });
 
   if (result.ok) {
+    document.getElementById(`product-${id}`).remove();
     closeEditProductModal();
   } else {
     errorMessage.textContent = "Failed to delete product";
+    return;
+  }
+}
+
+async function updateProduct(event) {
+  event.preventDefault();
+
+  if (!editProfuctForm.checkValidity()) return false;
+
+  const { id } = state.selectedProduct;
+
+  const name = editProfuctForm.name.value;
+  const description = editProfuctForm.description.value;
+  const price = editProfuctForm.price.value;
+  const parent_category_id = +selectCategoryForEditProduct.value;
+
+  const data = {
+    name,
+    description,
+    price,
+    parent_category_id,
+  };
+
+  const result = await fetch(`/api/v1/product/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (result.ok) {
+    document.getElementById(`product-${id}`).innerHTML = `
+      <td>${id}</td>
+      <td>${name}</td>
+      <td>${price}</td>
+      <td>${description}</td>
+      <td>${
+        selectCategoryForEditProduct.children[
+          selectCategoryForEditProduct.selectedIndex
+        ].textContent
+      }</td>
+    `;
+
+    closeEditProductModal();
+  } else {
+    errorMessage.textContent = "Failed to update product";
     return;
   }
 }
@@ -122,6 +193,9 @@ function init() {
   productForm = document.getElementById("product-form");
   errorMessage = document.getElementById("error-message");
   productsTable = document.getElementById("products");
+  selectCategoryForCreateProduct = document.getElementById(
+    "select-category-for-create"
+  );
 
   editProductModal = document.getElementById("edit-product-modal");
   editProfuctForm = document.getElementById("edit-product-form");
@@ -135,6 +209,9 @@ function init() {
   );
   editProductSaveButton = document.getElementById("save-product-button");
   editProductDeleteButton = document.getElementById("delete-product-button");
+  selectCategoryForEditProduct = document.getElementById(
+    "select-category-for-edit"
+  );
 
   if (
     !modal ||
@@ -162,6 +239,7 @@ function init() {
 
   editProductCloseModalButton.addEventListener("click", closeEditProductModal);
   editProductDeleteButton.addEventListener("click", deleteProduct);
+  editProfuctForm.addEventListener("submit", updateProduct);
 }
 
 document.addEventListener("DOMContentLoaded", init);

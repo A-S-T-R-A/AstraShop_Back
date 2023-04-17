@@ -11,13 +11,15 @@ html
         th Name
         th Price
         th Description
+        th Category
 
       each val in products
-        tr(data-id = val.id class = "product")
+        tr(data-id = val.id class = "product" id="product-" + val.id)
           td= val.id
           td= val.name
           td= val.price
           td= val.description
+          td= val.category ? val.category.name : ""
     div(id = "modal" class = "modal")
       div(class = "modal-content")
         form(id = "product-form" novalidate)
@@ -34,10 +36,16 @@ html
               div Description
               textarea(id = "input-description" name = "description" placeholder = "Description")
 
+            label(for = "select-category-for-create") 
+              div Parent category
+              select(id = "select-category-for-create" name = "category")
+                each val in categories
+                  option(value = val.id)= val.name
+
             div(id = "error-message")  
 
             button(type = "submit") Submit
-        button(id = "close-modal-button") X
+        button(id = "close-modal-button" class = "close-button") X
     #edit-product-modal.modal
       #edit-product-modal-content.modal-content
         form(id = "edit-product-form" novalidate)
@@ -54,9 +62,15 @@ html
               div Description
               textarea(id = "edit-input-description" name = "description" placeholder = "Description")
 
+            label(for = "select-category-for-edit") 
+              div Parent category
+              select(id = "select-category-for-edit" name = "category")
+                each val in categories
+                  option(value = val.id)= val.name
+
             #edit-error-message  
 
             button(type = "submit" id = "save-product-button") Save
             button(id = "delete-product-button" type = "button") Remove
-        button(id = "close-edit-modal-button") X    
+        button(id = "close-edit-modal-button" class = "close-button") X    
       

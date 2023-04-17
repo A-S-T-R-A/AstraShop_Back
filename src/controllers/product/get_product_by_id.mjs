@@ -8,25 +8,36 @@ export async function getProductById(req, res) {
     params: { id },
   } = req;
 
-  const { product, product_attributes, attribute_types, attribute_values } =
-    db.models;
+  const {
+    product,
+    product_attributes,
+    attribute_types,
+    attribute_values,
+    category,
+  } = db.models;
 
   let result;
 
   try {
     result = await product.findByPk(id, {
-      include: {
-        model: product_attributes,
-        attributes: ["id"],
-        include: {
-          attributes: ["id", "name"],
-          model: attribute_values,
+      include: [
+        {
+          model: product_attributes,
+          attributes: ["id"],
           include: {
             attributes: ["id", "name"],
-            model: attribute_types,
+            model: attribute_values,
+            include: {
+              attributes: ["id", "name"],
+              model: attribute_types,
+            },
           },
         },
-      },
+        {
+          model: category,
+          attributes: ["id", "name"],
+        },
+      ],
       attributes: ["id", "name", "description", "price", "images"],
     });
 

@@ -1,3 +1,6 @@
+import { Database } from "../../database/index.mjs";
+import { productSchema } from "./create_product.mjs";
+
 export async function updateProduct(req, res) {
   const db = Database().getInstance();
 
@@ -5,7 +8,17 @@ export async function updateProduct(req, res) {
 
   const { id } = req.params;
 
-  const { name, description, price } = req.body;
+  let validationResult;
+
+  try {
+    validationResult = await productSchema.validate(req.body);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+    return;
+  }
+
+  const { name, description, price, parent_category_id } = req.body;
 
   let result;
 
@@ -15,6 +28,7 @@ export async function updateProduct(req, res) {
         name,
         description,
         price,
+        parent_category_id,
       },
       {
         where: {
