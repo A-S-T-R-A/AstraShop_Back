@@ -20,7 +20,7 @@ function buildTree(arr, parent = null) {
 export async function getCategoryTree(req, res) {
   const db = Database().getInstance();
 
-  const { category, product } = db.models;
+  const { category } = db.models;
 
   let result;
 

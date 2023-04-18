@@ -1,4 +1,5 @@
 import { Database } from "../../database/index.mjs";
+import { categorySchema } from "./create_category.mjs";
 
 export async function changeCategory(req, res) {
   const {
@@ -6,24 +7,29 @@ export async function changeCategory(req, res) {
     params: { id },
   } = req;
 
+  let validationResult;
+
+  try {
+    validationResult = await categorySchema.validate(body);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(400);
+    return;
+  }
+
   const db = Database().getInstance();
 
   const { category } = db.models;
 
   let result = null;
 
+  console.log(body);
   try {
-    result = await category.update(
-      {
-        name: body.name,
-        parent_category_id: body.parentCategoryId,
+    result = await category.update(validationResult, {
+      where: {
+        id: parseInt(id),
       },
-      {
-        where: {
-          id: parseInt(id),
-        },
-      }
-    );
+    });
   } catch (err) {
     console.log(err);
   }
