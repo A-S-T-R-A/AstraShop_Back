@@ -19,3 +19,20 @@ orderForm.addEventListener("submit", async (e) => {
 
   location.href = result.url;
 });
+
+const uploadForm = document.getElementById("upload-form");
+
+uploadForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(uploadForm);
+
+  const response = await fetch("/api/v1/product/35/upload_photo", {
+    method: "PUT",
+    body: formData,
+  });
+
+  const result = await response.json();
+
+  console.log(result);
+});

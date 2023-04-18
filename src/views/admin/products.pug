@@ -36,9 +36,13 @@ html
               div Description
               textarea(id = "input-description" name = "description" placeholder = "Description")
 
+            label(for = "product-images") 
+              div Description
+              input(id = "product-images" name = "images" type = "file" multiple)
+
             label(for = "select-category-for-create") 
               div Parent category
-              select(id = "select-category-for-create" name = "category")
+              select(id = "select-category-for-create" name = "parent_category_id")
                 each val in categories
                   option(value = val.id)= val.name
 

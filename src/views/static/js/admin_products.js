@@ -16,6 +16,8 @@ let editProductSaveButton;
 let editProductDeleteButton;
 let selectCategoryForEditProduct;
 
+let productImagesInput;
+
 const state = {
   selectedProduct: null,
 };
@@ -79,24 +81,11 @@ async function createProduct(event) {
 
   if (!productForm.checkValidity()) return false;
 
-  const name = productForm.name.value;
-  const description = productForm.description.value;
-  const price = productForm.price.value;
-  const parent_category_id = +selectCategoryForCreateProduct.value;
-
-  const data = {
-    name,
-    description,
-    price,
-    parent_category_id,
-  };
+  const data = new FormData(productForm);
 
   const result = await fetch("/api/v1/product", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    body: data,
   });
 
   if (result.ok) {
@@ -186,6 +175,23 @@ async function updateProduct(event) {
   }
 }
 
+function uploadImages(event) {
+  const { files } = event.target;
+
+  if (files.length > 0) {
+    const formData = new FormData();
+
+    Array.from(files).forEach((file) => {
+      formData.append("images", file);
+    });
+
+    fetch("/api/v1/upload/images", {
+      method: "POST",
+      body: formData,
+    });
+  }
+}
+
 function init() {
   modal = document.getElementById("modal");
   closeModalButton = document.getElementById("close-modal-button");
@@ -213,6 +219,8 @@ function init() {
     "select-category-for-edit"
   );
 
+  productImagesInput = document.getElementById("product-images");
+
   if (
     !modal ||
     !closeModalButton ||
@@ -227,7 +235,8 @@ function init() {
     !editProductPriceInput ||
     !editProductCloseModalButton ||
     !editProductSaveButton ||
-    !editProductDeleteButton
+    !editProductDeleteButton ||
+    !productImagesInput
   ) {
     throw new Error("Missing elements");
   }
@@ -240,6 +249,8 @@ function init() {
   editProductCloseModalButton.addEventListener("click", closeEditProductModal);
   editProductDeleteButton.addEventListener("click", deleteProduct);
   editProfuctForm.addEventListener("submit", updateProduct);
+
+  productImagesInput.addEventListener("change", uploadImages);
 }
 
 document.addEventListener("DOMContentLoaded", init);

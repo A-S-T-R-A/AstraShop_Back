@@ -25,17 +25,10 @@ export async function createProduct(req, res) {
     return;
   }
 
-  const { name, description, price, parent_category_id } = req.body;
-
   let result;
 
   try {
-    result = await product.create({
-      name,
-      description,
-      price,
-      parent_category_id,
-    });
+    result = await product.create(validationResult);
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);

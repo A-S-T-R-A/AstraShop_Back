@@ -19,6 +19,7 @@ import { renderProductsPage } from "./render/products.mjs";
 import { createProduct } from "./controllers/product/create_product.mjs";
 import { deleteProduct } from "./controllers/product/delete_product.mjs";
 import { updateProduct } from "./controllers/product/update_product.mjs";
+import { uploadImages } from "./controllers/other/upload_images.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -60,6 +61,8 @@ app.get("/api/v1/category/:id/filters", getCategoryFilters);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);
+
+app.post("/api/v1/upload/images", uploadImages);
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "index.html"));
