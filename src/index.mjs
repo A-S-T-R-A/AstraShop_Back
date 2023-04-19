@@ -38,6 +38,11 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/static", express.static(path.join(__dirname, "views", "static")));
 
+app.use(
+  "/uploads",
+  express.static(process.env.FILE_UPLOAD_PATH || path.join(__dirname, ""))
+);
+
 app.get("/api/v1/check", (req, res) => {
   res.sendStatus(200);
 });

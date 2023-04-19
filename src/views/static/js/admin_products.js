@@ -219,7 +219,7 @@ async function uploadImages(event) {
     const data = await result.json();
 
     if (result.ok) {
-      state.images = data.map((image) => image.path);
+      state.images = data;
     } else {
       return;
     }

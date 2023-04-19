@@ -7,7 +7,7 @@ export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const folderPath = path.join(__dirname, process.env.FILE_UPLOAD_PATH);
+    const folderPath = process.env.FILE_UPLOAD_PATH || path.join(__dirname, "");
 
     if (!fs.existsSync(folderPath)) {
       console.error("Folder does not exist");
@@ -66,7 +66,14 @@ export async function uploadImages(req, res) {
           return res.sendStatus(500);
         }
       } else {
-        return res.status(201).json(req.files);
+        return res
+          .status(201)
+          .json(
+            req.files.map(
+              (file) =>
+                `${process.env.HOST}:${process.env.PORT}/uploads/${file.filename}`
+            )
+          );
       }
     });
   } catch (err) {
