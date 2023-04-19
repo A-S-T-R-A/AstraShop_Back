@@ -18,24 +18,14 @@ export async function updateProduct(req, res) {
     return;
   }
 
-  const { name, description, price, parent_category_id } = req.body;
-
   let result;
 
   try {
-    result = await product.update(
-      {
-        name,
-        description,
-        price,
-        parent_category_id,
+    result = await product.update(validationResult, {
+      where: {
+        id,
       },
-      {
-        where: {
-          id,
-        },
-      }
-    );
+    });
   } catch (error) {
     console.log(error);
     return res.sendStatus(500);

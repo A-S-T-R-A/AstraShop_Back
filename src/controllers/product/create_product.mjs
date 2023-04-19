@@ -1,5 +1,5 @@
 import { Database } from "../../database/index.mjs";
-import { number, object, string } from "yup";
+import { array, number, object, string } from "yup";
 
 export const productSchema = object()
   .shape({
@@ -7,6 +7,7 @@ export const productSchema = object()
     price: number().positive(),
     description: string(),
     parent_category_id: number().positive(),
+    images: array().of(string()),
   })
   .noUnknown(true);
 

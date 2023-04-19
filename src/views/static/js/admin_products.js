@@ -15,11 +15,14 @@ let editProductCloseModalButton;
 let editProductSaveButton;
 let editProductDeleteButton;
 let selectCategoryForEditProduct;
+let editProductImagesBlock;
+let editProductImagesInput;
 
 let productImagesInput;
 
 const state = {
   selectedProduct: null,
+  images: [],
 };
 
 function openCreateProductModal() {
@@ -40,6 +43,18 @@ function openEditProductModal(data) {
       option.selected = true;
     }
   });
+
+  if (data.images) {
+    editProductImagesBlock.innerHTML = "";
+
+    data.images.forEach((image) => {
+      const img = document.createElement("img");
+      img.src = image;
+      img.classList.add("product-image");
+
+      editProductImagesBlock.appendChild(img);
+    });
+  }
 
   state.selectedProduct = data;
 }
@@ -81,11 +96,20 @@ async function createProduct(event) {
 
   if (!productForm.checkValidity()) return false;
 
-  const data = new FormData(productForm);
+  const data = {
+    name: productForm.name.value,
+    price: productForm.price.value,
+    description: productForm.description.value,
+    parent_category_id: selectCategoryForCreateProduct.value,
+    images: state.images,
+  };
 
   const result = await fetch("/api/v1/product", {
     method: "POST",
-    body: data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
 
   if (result.ok) {
@@ -139,12 +163,14 @@ async function updateProduct(event) {
   const description = editProfuctForm.description.value;
   const price = editProfuctForm.price.value;
   const parent_category_id = +selectCategoryForEditProduct.value;
+  const images = state.images;
 
   const data = {
     name,
     description,
     price,
     parent_category_id,
+    images,
   };
 
   const result = await fetch(`/api/v1/product/${id}`, {
@@ -175,7 +201,7 @@ async function updateProduct(event) {
   }
 }
 
-function uploadImages(event) {
+async function uploadImages(event) {
   const { files } = event.target;
 
   if (files.length > 0) {
@@ -185,10 +211,18 @@ function uploadImages(event) {
       formData.append("images", file);
     });
 
-    fetch("/api/v1/upload/images", {
+    const result = await fetch("/api/v1/upload/images", {
       method: "POST",
       body: formData,
     });
+
+    const data = await result.json();
+
+    if (result.ok) {
+      state.images = data.map((image) => image.path);
+    } else {
+      return;
+    }
   }
 }
 
@@ -218,6 +252,8 @@ function init() {
   selectCategoryForEditProduct = document.getElementById(
     "select-category-for-edit"
   );
+  editProductImagesBlock = document.getElementById("edit-product-modal-images");
+  editProductImagesInput = document.getElementById("product-images-edit");
 
   productImagesInput = document.getElementById("product-images");
 
@@ -236,7 +272,9 @@ function init() {
     !editProductCloseModalButton ||
     !editProductSaveButton ||
     !editProductDeleteButton ||
-    !productImagesInput
+    !productImagesInput ||
+    !editProductImagesBlock ||
+    !editProductImagesInput
   ) {
     throw new Error("Missing elements");
   }
@@ -251,6 +289,7 @@ function init() {
   editProfuctForm.addEventListener("submit", updateProduct);
 
   productImagesInput.addEventListener("change", uploadImages);
+  editProductImagesInput.addEventListener("change", uploadImages);
 }
 
 document.addEventListener("DOMContentLoaded", init);

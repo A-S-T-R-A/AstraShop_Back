@@ -72,9 +72,15 @@ html
                 each val in categories
                   option(value = val.id)= val.name
 
+            label(for = "product-images-edit") 
+              div Description
+              input(id = "product-images-edit" name = "images" type = "file" multiple)      
+
             #edit-error-message  
 
             button(type = "submit" id = "save-product-button") Save
             button(id = "delete-product-button" type = "button") Remove
+
+        #edit-product-modal-images    
         button(id = "close-edit-modal-button" class = "close-button") X    
       
