@@ -20,6 +20,7 @@ import { createProduct } from "./controllers/product/create_product.mjs";
 import { deleteProduct } from "./controllers/product/delete_product.mjs";
 import { updateProduct } from "./controllers/product/update_product.mjs";
 import { uploadImages } from "./controllers/other/upload_images.mjs";
+import { addAttributeToProduct } from "./controllers/product/add_attribute_to_product.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -61,6 +62,8 @@ app.delete("/api/v1/product/:id", deleteProduct);
 app.put("/api/v1/product/:id", updateProduct);
 
 app.get("/api/v1/product/:id", getProductById);
+
+app.post("/api/v1/product/:id/attributes", addAttributeToProduct);
 
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
 
