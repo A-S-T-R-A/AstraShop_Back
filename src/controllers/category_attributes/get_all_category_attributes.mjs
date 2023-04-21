@@ -3,7 +3,7 @@ import { Database } from "../../database/index.mjs";
 export async function getAllCategoryAttributes(req, res) {
   const db = Database().getInstance();
 
-  const { category_attributes, attribute_types } = db.models;
+  const { category_attributes, attribute_types, attribute_values } = db.models;
 
   let result;
 
@@ -13,6 +13,12 @@ export async function getAllCategoryAttributes(req, res) {
         {
           model: attribute_types,
           attributes: ["id", "name"],
+          include: [
+            {
+              model: attribute_values,
+              attributes: ["id", "name"],
+            },
+          ],
         },
       ],
       attributes: [],
