@@ -25,6 +25,7 @@ import { updateProductAttributes } from "./controllers/product_attributes/update
 import { getAllCategoryAttributes } from "./controllers/category_attributes/get_all_category_attributes.mjs";
 import { createCategoryAttribute } from "./controllers/category_attributes/create_category_attribute.mjs";
 import { updateCategoryAttribute } from "./controllers/category_attributes/update_category_attribute_by_id.mjs";
+import { deleteCategoryAttributeById } from "./controllers/category_attributes/delete_category_attribute_by_id.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -82,6 +83,10 @@ app.post("/api/v1/category/:categoryId/attributes", createCategoryAttribute);
 app.put(
   "/api/v1/category/:categoryId/attributes/:attributeId",
   updateCategoryAttribute
+);
+app.delete(
+  "/api/v1/category/:categoryId/attributes/:attributeId",
+  deleteCategoryAttributeById
 );
 
 app.get("/api/v1/category/:id/attributes/:attributeId/values/all");
