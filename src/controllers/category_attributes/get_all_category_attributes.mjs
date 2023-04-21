@@ -1,6 +1,22 @@
+import { number, object } from "yup";
 import { Database } from "../../database/index.mjs";
 
+const schema = object().shape({
+  categoryId: number().required(),
+});
+
 export async function getAllCategoryAttributes(req, res) {
+  const { categoryId } = req.params;
+
+  let validData;
+
+  try {
+    validData = await schema.validate({ categoryId });
+  } catch (error) {
+    console.error(error);
+    return res.sendStatus(400);
+  }
+
   const db = Database().getInstance();
 
   const { category_attributes, attribute_types, attribute_values } = db.models;
@@ -21,6 +37,9 @@ export async function getAllCategoryAttributes(req, res) {
           ],
         },
       ],
+      where: {
+        category_id: validData.categoryId,
+      },
       attributes: [],
     });
   } catch (error) {
