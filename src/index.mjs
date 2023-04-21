@@ -20,7 +20,8 @@ import { createProduct } from "./controllers/product/create_product.mjs";
 import { deleteProduct } from "./controllers/product/delete_product.mjs";
 import { updateProduct } from "./controllers/product/update_product.mjs";
 import { uploadImages } from "./controllers/other/upload_images.mjs";
-import { addAttributeToProduct } from "./controllers/product/add_attribute_to_product.mjs";
+import { addAttributeToProduct } from "./controllers/product_attributes/add_attribute_to_product.mjs";
+import { updateProductAttributes } from "./controllers/product_attributes/update_product_attributes.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -63,14 +64,33 @@ app.put("/api/v1/product/:id", updateProduct);
 
 app.get("/api/v1/product/:id", getProductById);
 
-app.post("/api/v1/product/:id/attributes", addAttributeToProduct);
-
 app.get("/api/v1/category/:id/filters", getCategoryFilters);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);
 
 app.post("/api/v1/upload/images", uploadImages);
+
+app.get("/api/v1/category/:categoryId/attributes/all");
+app.post("/api/v1/category/:categoryId/attributes");
+app.put("/api/v1/category/:categoryId/attributes/:attributeId");
+app.delete("/api/v1/category/:categoryId/attributes/:attributeId");
+
+app.get("/api/v1/category/:id/attributes/:attributeId/values/all");
+app.post("/api/v1/category/:id/attributes/:attributeId/values");
+app.put("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
+app.delete("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
+
+app.get("/api/v1/product/:productId/attributes/all");
+app.post("/api/v1/product/:productId/attributes");
+app.put("/api/v1/product/:productId/attributes/:attributeId");
+app.delete("/api/v1/product/:productId/attributes/:attributeId");
+
+app.put("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
+app.post("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
+app.delete(
+  "/api/v1/product/:productId/attributes/:attributeId/values/:valueId"
+);
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "index.html"));

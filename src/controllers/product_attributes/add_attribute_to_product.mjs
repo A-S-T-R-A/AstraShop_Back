@@ -1,15 +1,25 @@
 import { Database } from "../../database/index.mjs";
-import { array, number, object, string } from "yup";
+import { array, boolean, number, object, string } from "yup";
 
-const schema = object()
+export const schema = object()
   .shape({
-    name: string().required(),
-    id: number(),
+    isExisted: boolean(),
+    data: object()
+      .shape({
+        name: string(),
+        id: number(),
+      })
+      .required(),
     values: array()
       .of(
         object().shape({
-          name: string().required(),
-          id: number(),
+          isExisted: boolean(),
+          data: object()
+            .shape({
+              name: string(),
+              id: number(),
+            })
+            .required(),
         })
       )
       .required(),
@@ -17,11 +27,12 @@ const schema = object()
   .noUnknown(true);
 
 export async function addAttributeToProduct(req, res) {
-  let data;
+  let validData;
 
   try {
-    data = await schema.validate(req.body);
+    validData = await schema.validate(req.body);
   } catch (error) {
+    console.error(error);
     return res.sendStatus(400);
   }
 
@@ -33,7 +44,7 @@ export async function addAttributeToProduct(req, res) {
     await db.transaction(async (t) => {
       const newType = await attribute_types.create(
         {
-          name: data.name,
+          name: validData.data.name,
         },
         { transaction: t }
       );
@@ -41,8 +52,8 @@ export async function addAttributeToProduct(req, res) {
       const attributeTypeId = newType.id;
 
       const newValues = await attribute_values.bulkCreate(
-        data.values.map((value) => ({
-          name: value.name,
+        validData.values.map((value) => ({
+          name: value.data.name,
           attribute_type_id: attributeTypeId,
         })),
         { transaction: t }
