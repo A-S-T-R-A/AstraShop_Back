@@ -75,6 +75,7 @@ export function Database() {
 
       attribute_types.hasMany(attribute_values, {
         foreignKey: "attribute_type_id",
+        onDelete: "cascade", // delete all associated attribute values when attribute type is deleted. If you want to change you need to create migration
       });
 
       attribute_values.belongsTo(attribute_types, {
@@ -123,6 +124,7 @@ export function Database() {
 
       attribute_types.hasMany(category_attributes, {
         foreignKey: "attribute_type_id",
+        onDelete: "cascade", // delete all associated attribute values when attribute type is deleted. If you want to change you need to create migration
       });
 
       category_attributes.belongsTo(attribute_types, {
