@@ -20,12 +20,12 @@ import { createProduct } from "./controllers/product/create_product.mjs";
 import { deleteProduct } from "./controllers/product/delete_product.mjs";
 import { updateProduct } from "./controllers/product/update_product.mjs";
 import { uploadImages } from "./controllers/other/upload_images.mjs";
-import { addAttributeToProduct } from "./controllers/product_attributes/add_attribute_to_product.mjs";
-import { updateProductAttributes } from "./controllers/product_attributes/update_product_attributes.mjs";
 import { getAllCategoryAttributes } from "./controllers/category_attributes/get_all_category_attributes.mjs";
 import { createCategoryAttribute } from "./controllers/category_attributes/create_category_attribute.mjs";
 import { updateCategoryAttribute } from "./controllers/category_attributes/update_category_attribute_by_id.mjs";
 import { deleteCategoryAttributeById } from "./controllers/category_attributes/delete_category_attribute_by_id.mjs";
+import { getAllProducts } from "./controllers/product/get_all_products.mjs";
+import { getAllCategories } from "./controllers/category/get_all.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -54,6 +54,7 @@ app.get("/api/v1/check", (req, res) => {
 });
 
 app.get("/api/v1/category/tree", getCategoryTree);
+app.get("/api/v1/category/all", getAllCategories);
 app.get("/api/v1/category/:id/products", getCategoryProducts);
 app.post("/api/v1/category", createCategory);
 app.put("/api/v1/category/:id", changeCategory);
@@ -61,6 +62,7 @@ app.put("/api/v1/category/:id", changeCategory);
 app.get("/api/v1/product/top", getTopProducts);
 app.get("/api/v1/product/new", getNewProducts);
 app.get("/api/v1/product/search", searchProduct);
+app.get("/api/v1/product/all", getAllProducts);
 
 app.post("/api/v1/product", createProduct);
 app.delete("/api/v1/product/:id", deleteProduct);
@@ -89,21 +91,21 @@ app.delete(
   deleteCategoryAttributeById
 );
 
-app.get("/api/v1/category/:id/attributes/:attributeId/values/all");
-app.post("/api/v1/category/:id/attributes/:attributeId/values");
-app.put("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
-app.delete("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
+// app.get("/api/v1/category/:id/attributes/:attributeId/values/all");
+// app.post("/api/v1/category/:id/attributes/:attributeId/values");
+// app.put("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
+// app.delete("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
 
-app.get("/api/v1/product/:productId/attributes/all");
-app.post("/api/v1/product/:productId/attributes");
-app.put("/api/v1/product/:productId/attributes/:attributeId");
-app.delete("/api/v1/product/:productId/attributes/:attributeId");
+// app.get("/api/v1/product/:productId/attributes/all");
+// app.post("/api/v1/product/:productId/attributes");
+// app.put("/api/v1/product/:productId/attributes/:attributeId");
+// app.delete("/api/v1/product/:productId/attributes/:attributeId");
 
-app.put("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
-app.post("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
-app.delete(
-  "/api/v1/product/:productId/attributes/:attributeId/values/:valueId"
-);
+// app.put("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
+// app.post("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
+// app.delete(
+//   "/api/v1/product/:productId/attributes/:attributeId/values/:valueId"
+// );
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "index.html"));
