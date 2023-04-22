@@ -131,7 +131,9 @@ const options = {
   cert: fs.readFileSync(path.resolve("cert", "certificate.crt")),
 };
 
-https.createServer(options, app).listen(process.env.PORT || 3000);
+https.createServer(options, app).listen(process.env.PORT || 3000, () => {
+  console.log("Server started", process.env.PORT);
+});
 
 const database = Database();
 
