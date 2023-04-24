@@ -77,7 +77,7 @@ app.put("/api/v1/product/:id", updateProduct);
 
 app.get("/api/v1/product/:id", getProductById);
 
-app.get("/api/v1/category/:id/filters", getCategoryFilters);
+app.get("/api/v1/category/:categoryId/filters", getCategoryFilters);
 
 app.post("/api/v1/order", createOrder);
 app.get("/api/v1/order", getAllOrders);
