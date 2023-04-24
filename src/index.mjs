@@ -26,6 +26,13 @@ import { updateCategoryAttribute } from "./controllers/category_attributes/updat
 import { deleteCategoryAttributeById } from "./controllers/category_attributes/delete_category_attribute_by_id.mjs";
 import { getAllProducts } from "./controllers/product/get_all_products.mjs";
 import { getAllCategories } from "./controllers/category/get_all.mjs";
+import { getAllCategoryAttributesValues } from "./controllers/category_attributes_values/get_all_values.mjs";
+import { createNewValue } from "./controllers/category_attributes_values/create_new_value.mjs";
+import { updateValue } from "./controllers/category_attributes_values/update_value.mjs";
+import { deleteValue } from "./controllers/category_attributes_values/delete_value.mjs";
+import { getAllProductAttributes } from "./controllers/product_attributes/get_all_attributes.mjs";
+import { addAttributeValuesToProduct } from "./controllers/product_attributes/add_attribute_value_to_product.mjs";
+import { deleteProductAttributeValues } from "./controllers/product_attributes/delete_attribute_value_from_product.mjs";
 
 export const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -91,21 +98,29 @@ app.delete(
   deleteCategoryAttributeById
 );
 
-// app.get("/api/v1/category/:id/attributes/:attributeId/values/all");
-// app.post("/api/v1/category/:id/attributes/:attributeId/values");
-// app.put("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
-// app.delete("/api/v1/category/:id/attributes/:attributeId/values/:valueId");
+app.get(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values/all",
+  getAllCategoryAttributesValues
+);
+app.post(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values",
+  createNewValue
+);
+app.put(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values/:valueId",
+  updateValue
+);
+app.delete(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values/:valueId",
+  deleteValue
+);
 
-// app.get("/api/v1/product/:productId/attributes/all");
-// app.post("/api/v1/product/:productId/attributes");
-// app.put("/api/v1/product/:productId/attributes/:attributeId");
-// app.delete("/api/v1/product/:productId/attributes/:attributeId");
-
-// app.put("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
-// app.post("/api/v1/product/:productId/attributes/:attributeId/values/:valueId");
-// app.delete(
-//   "/api/v1/product/:productId/attributes/:attributeId/values/:valueId"
-// );
+app.get("/api/v1/product/:productId/attributes/all", getAllProductAttributes);
+app.put("/api/v1/product/:productId/attributes", addAttributeValuesToProduct);
+app.delete(
+  "/api/v1/product/:productId/attributes/:attributeId",
+  deleteProductAttributeValues
+);
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "index.html"));
