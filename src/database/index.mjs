@@ -48,7 +48,6 @@ export function Database() {
       const {
         product,
         category,
-        category_filters,
         attribute_values,
         attribute_types,
         product_attributes,
@@ -62,14 +61,6 @@ export function Database() {
       });
 
       product.belongsTo(category, {
-        foreignKey: "parent_category_id",
-      });
-
-      category.hasMany(category_filters, {
-        foreignKey: "parent_category_id",
-      });
-
-      category_filters.belongsTo(category, {
         foreignKey: "parent_category_id",
       });
 
