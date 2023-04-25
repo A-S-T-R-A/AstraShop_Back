@@ -28,9 +28,12 @@ export async function getAllProductAttributes(req, res) {
       attributes: [],
       include: [
         {
+          required: true,
+          attributes: ["name", "id"],
           model: attribute_values,
           include: [
             {
+              attributes: ["name", "id"],
               model: attribute_types,
             },
           ],

@@ -19,7 +19,7 @@ const querySchema = object()
     [names.price]: string().matches(/^\d+\-?\d+?$/, {
       excludeEmptyString: true,
     }),
-    attr: string().matches(/^\d(,\d+)*$/),
+    attr: string().matches(/^\d+(,\d+)*$/),
   })
   .noUnknown(true);
 

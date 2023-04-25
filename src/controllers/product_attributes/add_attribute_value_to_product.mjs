@@ -45,7 +45,17 @@ export async function addAttributeValuesToProduct(req, res) {
       }))
     );
   } catch (error) {
-    console.error(error);
+    if (error.name === "SequelizeUniqueConstraintError") {
+      if (
+        error.parent.constraint ===
+        "product_attributes_product_id_product_attribute_value_id"
+      ) {
+        return res
+          .status(400)
+          .json({ message: "Product already has this attribute value" });
+      }
+    }
+
     return res.sendStatus(500);
   }
 

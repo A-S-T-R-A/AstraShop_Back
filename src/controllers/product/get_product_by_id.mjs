@@ -25,6 +25,7 @@ export async function getProductById(req, res) {
           model: product_attributes,
           attributes: ["id"],
           include: {
+            required: true,
             attributes: ["id", "name"],
             model: attribute_values,
             include: {
@@ -71,14 +72,16 @@ export async function getProductById(req, res) {
       const value = el.attribute_value;
       const type = value.attribute_type;
 
-      if (!attributes[type.name]) {
-        attributes[type.name] = [];
+      if (!attributes[type.id]) {
+        attributes[type.id] = {
+          [type.name]: [],
+        };
       }
 
-      attributes[type.name].push({ id: value.id, name: value.name });
+      attributes[type.id][type.name].push({ id: value.id, name: value.name });
     });
 
-    result.attributes = attributes;
+    result.attributes = Object.values(attributes);
 
     delete result.product_attributes;
 
