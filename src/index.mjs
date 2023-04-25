@@ -93,26 +93,30 @@ app.put(
   "/api/v1/category/:categoryId/attributes/:attributeId",
   updateCategoryAttribute
 );
+
 app.delete(
   "/api/v1/category/:categoryId/attributes/:attributeId",
   deleteCategoryAttributeById
+);
+
+app.post(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values",
+  createNewValue
+);
+
+app.delete(
+  "/api/v1/category/:categoryId/attributes/:attributeId/values",
+  deleteValue
 );
 
 app.get(
   "/api/v1/category/:categoryId/attributes/:attributeId/values/all",
   getAllCategoryAttributesValues
 );
-app.post(
-  "/api/v1/category/:categoryId/attributes/:attributeId/values",
-  createNewValue
-);
+
 app.put(
   "/api/v1/category/:categoryId/attributes/:attributeId/values/:valueId",
   updateValue
-);
-app.delete(
-  "/api/v1/category/:categoryId/attributes/:attributeId/values/:valueId",
-  deleteValue
 );
 
 app.get("/api/v1/product/:productId/attributes/all", getAllProductAttributes);
