@@ -17,7 +17,25 @@ export function Database() {
 
   database = Object.freeze({
     async start() {
-      sequelize = new Sequelize(config.development);
+      sequelize = new Sequelize(
+        config.development.database,
+        config.development.username,
+        config.development.password,
+        {
+          host: config.development.host,
+          port: config.development.port,
+          logging: console.log,
+          maxConcurrentQueries: 100,
+          dialect: config.development.dialect,
+          dialectOptions: {
+            ssl: {
+              ca: fs.readFileSync("./cert/eu-central-1-bundle.pem"),
+            },
+          },
+          pool: { maxConnections: 5, maxIdleTime: 30 },
+          language: "en",
+        }
+      );
 
       try {
         await sequelize.authenticate();

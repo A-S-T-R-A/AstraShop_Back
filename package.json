@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.mjs",
     "start": "pm2 start node -- src/index.mjs",
     "migration": "sequelize-cli db:migrate",
-    "test:dump": "pg_dump ecommerce > dump.sql"
+    "test:dump": "pg_dump astramaster > dump.sql"
   },
   "keywords": [],
   "author": "",

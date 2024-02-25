@@ -17,7 +17,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: enum_category_filters_type; Type: TYPE; Schema: public; Owner: denys
+-- Name: enum_category_filters_type; Type: TYPE; Schema: public; Owner: astramaster
 --
 
 CREATE TYPE public.enum_category_filters_type AS ENUM (
@@ -26,7 +26,7 @@ CREATE TYPE public.enum_category_filters_type AS ENUM (
 );
 
 
-ALTER TYPE public.enum_category_filters_type OWNER TO denys;
+ALTER TYPE public.enum_category_filters_type OWNER TO astramaster;
 
 SET default_tablespace = '';
 
@@ -44,7 +44,7 @@ CREATE TABLE public."SequelizeMeta" (
 ALTER TABLE public."SequelizeMeta" OWNER TO postgres;
 
 --
--- Name: attribute_types; Type: TABLE; Schema: public; Owner: denys
+-- Name: attribute_types; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.attribute_types (
@@ -56,10 +56,10 @@ CREATE TABLE public.attribute_types (
 );
 
 
-ALTER TABLE public.attribute_types OWNER TO denys;
+ALTER TABLE public.attribute_types OWNER TO astramaster;
 
 --
--- Name: attribute_types_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: attribute_types_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.attribute_types_id_seq
@@ -71,17 +71,17 @@ CREATE SEQUENCE public.attribute_types_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.attribute_types_id_seq OWNER TO denys;
+ALTER TABLE public.attribute_types_id_seq OWNER TO astramaster;
 
 --
--- Name: attribute_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: attribute_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.attribute_types_id_seq OWNED BY public.attribute_types.id;
 
 
 --
--- Name: attribute_values; Type: TABLE; Schema: public; Owner: denys
+-- Name: attribute_values; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.attribute_values (
@@ -93,10 +93,10 @@ CREATE TABLE public.attribute_values (
 );
 
 
-ALTER TABLE public.attribute_values OWNER TO denys;
+ALTER TABLE public.attribute_values OWNER TO astramaster;
 
 --
--- Name: attribute_values_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: attribute_values_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.attribute_values_id_seq
@@ -108,10 +108,10 @@ CREATE SEQUENCE public.attribute_values_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.attribute_values_id_seq OWNER TO denys;
+ALTER TABLE public.attribute_values_id_seq OWNER TO astramaster;
 
 --
--- Name: attribute_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: attribute_values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.attribute_values_id_seq OWNED BY public.attribute_values.id;
@@ -136,7 +136,7 @@ CREATE TABLE public.category (
 ALTER TABLE public.category OWNER TO postgres;
 
 --
--- Name: category_filters; Type: TABLE; Schema: public; Owner: denys
+-- Name: category_filters; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.category_filters (
@@ -151,10 +151,10 @@ CREATE TABLE public.category_filters (
 );
 
 
-ALTER TABLE public.category_filters OWNER TO denys;
+ALTER TABLE public.category_filters OWNER TO astramaster;
 
 --
--- Name: category_filters_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: category_filters_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.category_filters_id_seq
@@ -166,10 +166,10 @@ CREATE SEQUENCE public.category_filters_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.category_filters_id_seq OWNER TO denys;
+ALTER TABLE public.category_filters_id_seq OWNER TO astramaster;
 
 --
--- Name: category_filters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: category_filters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.category_filters_id_seq OWNED BY public.category_filters.id;
@@ -198,7 +198,7 @@ ALTER SEQUENCE public.category_id_seq OWNED BY public.category.id;
 
 
 --
--- Name: order_products; Type: TABLE; Schema: public; Owner: denys
+-- Name: order_products; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.order_products (
@@ -211,10 +211,10 @@ CREATE TABLE public.order_products (
 );
 
 
-ALTER TABLE public.order_products OWNER TO denys;
+ALTER TABLE public.order_products OWNER TO astramaster;
 
 --
--- Name: order_products_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: order_products_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.order_products_id_seq
@@ -226,17 +226,17 @@ CREATE SEQUENCE public.order_products_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.order_products_id_seq OWNER TO denys;
+ALTER TABLE public.order_products_id_seq OWNER TO astramaster;
 
 --
--- Name: order_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: order_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.order_products_id_seq OWNED BY public.order_products.id;
 
 
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: denys
+-- Name: orders; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.orders (
@@ -246,10 +246,10 @@ CREATE TABLE public.orders (
 );
 
 
-ALTER TABLE public.orders OWNER TO denys;
+ALTER TABLE public.orders OWNER TO astramaster;
 
 --
--- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.orders_id_seq
@@ -261,10 +261,10 @@ CREATE SEQUENCE public.orders_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orders_id_seq OWNER TO denys;
+ALTER TABLE public.orders_id_seq OWNER TO astramaster;
 
 --
--- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
@@ -292,7 +292,7 @@ CREATE TABLE public.product (
 ALTER TABLE public.product OWNER TO postgres;
 
 --
--- Name: product_attributes; Type: TABLE; Schema: public; Owner: denys
+-- Name: product_attributes; Type: TABLE; Schema: public; Owner: astramaster
 --
 
 CREATE TABLE public.product_attributes (
@@ -304,10 +304,10 @@ CREATE TABLE public.product_attributes (
 );
 
 
-ALTER TABLE public.product_attributes OWNER TO denys;
+ALTER TABLE public.product_attributes OWNER TO astramaster;
 
 --
--- Name: product_attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: denys
+-- Name: product_attributes_id_seq; Type: SEQUENCE; Schema: public; Owner: astramaster
 --
 
 CREATE SEQUENCE public.product_attributes_id_seq
@@ -319,10 +319,10 @@ CREATE SEQUENCE public.product_attributes_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.product_attributes_id_seq OWNER TO denys;
+ALTER TABLE public.product_attributes_id_seq OWNER TO astramaster;
 
 --
--- Name: product_attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: denys
+-- Name: product_attributes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: astramaster
 --
 
 ALTER SEQUENCE public.product_attributes_id_seq OWNED BY public.product_attributes.id;
@@ -351,14 +351,14 @@ ALTER SEQUENCE public.product_id_seq OWNED BY public.product.id;
 
 
 --
--- Name: attribute_types id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: attribute_types id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.attribute_types ALTER COLUMN id SET DEFAULT nextval('public.attribute_types_id_seq'::regclass);
 
 
 --
--- Name: attribute_values id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: attribute_values id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.attribute_values ALTER COLUMN id SET DEFAULT nextval('public.attribute_values_id_seq'::regclass);
@@ -372,21 +372,21 @@ ALTER TABLE ONLY public.category ALTER COLUMN id SET DEFAULT nextval('public.cat
 
 
 --
--- Name: category_filters id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: category_filters id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.category_filters ALTER COLUMN id SET DEFAULT nextval('public.category_filters_id_seq'::regclass);
 
 
 --
--- Name: order_products id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: order_products id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.order_products ALTER COLUMN id SET DEFAULT nextval('public.order_products_id_seq'::regclass);
 
 
 --
--- Name: orders id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
@@ -400,7 +400,7 @@ ALTER TABLE ONLY public.product ALTER COLUMN id SET DEFAULT nextval('public.prod
 
 
 --
--- Name: product_attributes id; Type: DEFAULT; Schema: public; Owner: denys
+-- Name: product_attributes id; Type: DEFAULT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.product_attributes ALTER COLUMN id SET DEFAULT nextval('public.product_attributes_id_seq'::regclass);
@@ -432,7 +432,7 @@ COPY public."SequelizeMeta" (name) FROM stdin;
 
 
 --
--- Data for Name: attribute_types; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: attribute_types; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.attribute_types (id, name, category_id, "createdAt", "updatedAt") FROM stdin;
@@ -442,7 +442,7 @@ COPY public.attribute_types (id, name, category_id, "createdAt", "updatedAt") FR
 
 
 --
--- Data for Name: attribute_values; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: attribute_values; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.attribute_values (id, name, attribute_type_id, "createdAt", "updatedAt") FROM stdin;
@@ -465,7 +465,7 @@ COPY public.category (id, name, "createdAt", "updatedAt", parent_category_id, ic
 
 
 --
--- Data for Name: category_filters; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: category_filters; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.category_filters (id, "createdAt", "updatedAt", parent_category_id, info, name, type, value) FROM stdin;
@@ -476,7 +476,7 @@ COPY public.category_filters (id, "createdAt", "updatedAt", parent_category_id, 
 
 
 --
--- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.order_products (id, order_id, product_id, "createdAt", "updatedAt", quantity) FROM stdin;
@@ -508,7 +508,7 @@ COPY public.order_products (id, order_id, product_id, "createdAt", "updatedAt", 
 
 
 --
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.orders (id, "createdAt", "updatedAt") FROM stdin;
@@ -552,7 +552,7 @@ COPY public.product (id, name, "createdAt", "updatedAt", parent_category_id, is_
 
 
 --
--- Data for Name: product_attributes; Type: TABLE DATA; Schema: public; Owner: denys
+-- Data for Name: product_attributes; Type: TABLE DATA; Schema: public; Owner: astramaster
 --
 
 COPY public.product_attributes (id, product_id, product_attribute_value_id, "createdAt", "updatedAt") FROM stdin;
@@ -568,21 +568,21 @@ COPY public.product_attributes (id, product_id, product_attribute_value_id, "cre
 
 
 --
--- Name: attribute_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: attribute_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.attribute_types_id_seq', 3, true);
 
 
 --
--- Name: attribute_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: attribute_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.attribute_values_id_seq', 5, true);
 
 
 --
--- Name: category_filters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: category_filters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.category_filters_id_seq', 152, true);
@@ -596,21 +596,21 @@ SELECT pg_catalog.setval('public.category_id_seq', 83, true);
 
 
 --
--- Name: order_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: order_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.order_products_id_seq', 32, true);
 
 
 --
--- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.orders_id_seq', 20, true);
 
 
 --
--- Name: product_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: denys
+-- Name: product_attributes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: astramaster
 --
 
 SELECT pg_catalog.setval('public.product_attributes_id_seq', 8, true);
@@ -632,7 +632,7 @@ ALTER TABLE ONLY public."SequelizeMeta"
 
 
 --
--- Name: attribute_types attribute_types_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: attribute_types attribute_types_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.attribute_types
@@ -640,7 +640,7 @@ ALTER TABLE ONLY public.attribute_types
 
 
 --
--- Name: attribute_values attribute_values_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: attribute_values attribute_values_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.attribute_values
@@ -648,7 +648,7 @@ ALTER TABLE ONLY public.attribute_values
 
 
 --
--- Name: category_filters category_filters_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: category_filters category_filters_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.category_filters
@@ -672,7 +672,7 @@ ALTER TABLE ONLY public.category
 
 
 --
--- Name: order_products order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: order_products order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.order_products
@@ -680,7 +680,7 @@ ALTER TABLE ONLY public.order_products
 
 
 --
--- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.orders
@@ -688,7 +688,7 @@ ALTER TABLE ONLY public.orders
 
 
 --
--- Name: product_attributes product_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: denys
+-- Name: product_attributes product_attributes_pkey; Type: CONSTRAINT; Schema: public; Owner: astramaster
 --
 
 ALTER TABLE ONLY public.product_attributes
@@ -714,4 +714,3 @@ ALTER TABLE ONLY public.product
 --
 -- PostgreSQL database dump complete
 --
-
